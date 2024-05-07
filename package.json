@@ -1,0 +1,19 @@
+{
+  "name": "senko-bot",
+  "version": "1.0.0",
+  "description": "Senko bot for french server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sayaniku/senko-bot.git"
+  },
+  "author": "Sayaniku",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sayaniku/senko-bot/issues"
+  },
+  "homepage": "https://github.com/Sayaniku/senko-bot#readme"
+}
