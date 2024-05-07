@@ -6,4 +6,5 @@ If you want to init the project on your pc, you need to make ``npm i`` and after
 Nodejs 20.04 is needed
 
 Discord : https://discord.gg/x4GeJMMzBB 
+
 Ko-fi : https://ko-fi.com/sayaniku
