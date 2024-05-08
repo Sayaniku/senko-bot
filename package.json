@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Sayaniku/senko-bot#readme",
   "dependencies": {
-    "discord.js": "^14.15.2"
+    "discord.js": "^14.15.2",
+    "nodemon": "^3.1.0"
   }
 }
