@@ -12,8 +12,7 @@ const client = new Client({
     presence: {
         activities: [{
             name: `les renards`,
-            type: ActivityType.Watching,
-            url: "https://discord.gg/x4GeJMMzBB"
+            type: ActivityType.Watching
         }],
         status: "Online"
     },
