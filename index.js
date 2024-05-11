@@ -1,20 +1,34 @@
 // Configurations of needed packages
 require('dotenv').config();
 const { Client, Collection, GatewayIntentBits, Partials, ActivityType, Events } = require("discord.js");
+const colors = require("colors")
 
 // Always use client with intents
 const client = new Client({
     intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildModeration, GatewayIntentBits.GuildEmojisAndStickers, GatewayIntentBits.GuildIntegrations, GatewayIntentBits.GuildWebhooks, GatewayIntentBits.GuildInvites, GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildMessageTyping, GatewayIntentBits.DirectMessages, GatewayIntentBits.DirectMessageReactions, GatewayIntentBits.DirectMessageTyping, GatewayIntentBits.GuildScheduledEvents, GatewayIntentBits.GuildPresences, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
     partials: [Partials.Channel, Partials.GuildMember, Partials.GuildScheduledEvent, Partials.Message, Partials.Reaction, Partials.ThreadMember, Partials.User],
-})
+    restTimeOffset: 0,
+    failIfNotExists: false,
+    presence: {
+        activities: [{
+            name: `les renards`,
+            type: ActivityType.Watching,
+            url: "https://discord.gg/x4GeJMMzBB"
+        }],
+        status: "Online"
+    },
+    allowedMentions: {
+        parse: ["roles", "users"],
+        repliedUser: false
+    }
+});
 
 // Login with the discord token configured on the .env file
 client.login(process.env.TOKEN)
 
 // Say when the bot is ready on the terminal
 client.once(Events.ClientReady, readyClient => {
-    console.log(`Ready! Logged in as ${readyClient.user.tag}`);
-});
+    console.log(`[READY] ${client.user.tag} (${client.user.id}) est prêt | ${client.guilds.cache.size.toLocaleString('fr-FR')} serveurs | ${client.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0).toLocaleString('fr-FR')} utilisateurs`.green);});
 
 // When an word is say at the start of the phase, the bot replies
 client.on('messageCreate', (message) => {
