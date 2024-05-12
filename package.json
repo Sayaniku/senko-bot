@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/Sayaniku/senko-bot#readme",
   "dependencies": {
+    "ascii-table": "^0.0.9",
+    "chalk": "^5.3.0",
     "colors": "^1.4.0",
     "discord.js": "^14.15.2",
     "dotenv": "^16.4.5",
