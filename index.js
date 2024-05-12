@@ -25,10 +25,6 @@ const client = new Client({
 // Login with the discord token configured on the .env file
 client.login(process.env.TOKEN)
 
-// Say when the bot is ready on the terminal
-client.once(Events.ClientReady, readyClient => {
-    console.log(`[READY] ${client.user.tag} (${client.user.id}) est prêt | ${client.guilds.cache.size.toLocaleString('fr-FR')} serveurs | ${client.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0).toLocaleString('fr-FR')} utilisateurs`.green);});
-
 // When an word is say at the start of the phase, the bot replies
 client.on('messageCreate', (message) => {
     if (message.author.bot) {
