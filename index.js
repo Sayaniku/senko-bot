@@ -1,7 +1,8 @@
 // Configurations of needed packages
 require('dotenv').config();
 const { Client, Collection, GatewayIntentBits, Partials, ActivityType, Events } = require("discord.js");
-const colors = require("colors")
+const colors = require("colors");
+const fs = require("fs");
 
 // Always use client with intents
 const client = new Client({
@@ -21,6 +22,20 @@ const client = new Client({
         repliedUser: false
     }
 });
+
+// Config file needed to use an prefix and add the owner
+client.config = require("./config.json");
+
+// Event loading
+const eventFiles = fs.readdirSync("./events").filter(file => file.endsWith(".js"));
+for (const file of eventFiles) {
+    const event = require(`./events/${file}`);
+    if (event.once) {
+        client.once(event.name, (...args) => event.execute(client, ...args));
+    } else {
+        client.on(event.name, (...args) => event.execute(client, ...args));
+    }
+};
 
 // Login with the discord token configured on the .env file
 client.login(process.env.TOKEN)
