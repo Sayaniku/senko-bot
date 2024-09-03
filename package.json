@@ -18,10 +18,13 @@
   "homepage": "https://github.com/Sayaniku/senko-bot#readme",
   "dependencies": {
     "ascii-table": "^0.0.9",
-    "chalk": "^5.3.0",
+    "chalk": "^2.4.1",
     "colors": "^1.4.0",
+    "discord-api-types": "^0.37.83",
     "discord.js": "^14.15.2",
     "dotenv": "^16.4.5",
-    "nodemon": "^3.1.0"
+    "moment": "^2.30.1",
+    "moment-duration-format": "^2.3.2",
+    "nodemon": "^3.1.4"
   }
 }

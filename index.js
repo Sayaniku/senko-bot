@@ -23,21 +23,29 @@ const client = new Client({
     }
 });
 
-// Config file needed to use an prefix and add the owner
-client.config = require("./config.json");
-
 // Handlers loading
+fs.readdirSync('./handlers').forEach((handler) => {
+    require(`./handlers/${handler}`)(client)
+});
 
+// Config file needed to use an prefix and add the owner
+const config = require('./config.json')
+client.config = require('./config.json')
+client.prefix = config.prefix;
+client.commands = new Collection();
 
 // Login with the discord token configured on the .env file
 client.login(process.env.TOKEN)
 
+// Second phrase of the ready
+client.on('ready', (c) => {
+     console.log(`[READY] ${client.user.tag} (${client.user.id}) est prêt | ${client.guilds.cache.size.toLocaleString('fr-FR')} serveurs | ${client.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0).toLocaleString('fr-FR')} utilisateurs`.green)
+});
 // When an word is say at the start of the phase, the bot replies
 client.on('messageCreate', (message) => {
     if (message.author.bot) {
         return;
     }
-
     if (message.content === "senko") {
         message.reply("Je suis un bot multifonction cree par mon maitre Sayaniku, j'opere generalement dans l'antre des renards et kitsune, cependant vous pouvez me trouver sur 2/3 serveurs en plus car mon maitre a decide de m'ajouter sur ces serveurs, j'ai ete dev en meme temps que ce dernier joue a Honkai Star Rail donc il se peut que de temps a autre mon code ait des problemes");
     }
