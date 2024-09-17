@@ -5,7 +5,7 @@ If you want to init the project on your pc, you need to make ``npm i`` and after
 
 Nodejs 20.04 is needed
 
-If you want edit the source code, please use nodemon (npm i -g nodemon), he's needed to be installed globally
+If you want edit the source code, please use nodemon (npm i -g nodemon), he's needed to be installed globally (for mac you can check because a little bit special)
 
 Discord : https://discord.gg/x4GeJMMzBB 
 
