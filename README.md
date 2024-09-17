@@ -10,3 +10,5 @@ If you want edit the source code, please use nodemon (npm i -g nodemon), he's ne
 Discord : https://discord.gg/x4GeJMMzBB 
 
 Ko-fi : https://ko-fi.com/sayaniku
+
+I'll try to update the bot when i can
