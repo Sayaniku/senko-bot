@@ -5,7 +5,7 @@ If you want to init the project on your pc, you need to make ``npm i`` and after
 
 Nodejs 20.04 is needed
 
-Nodemon will be installed, that because when we edit an script, that better to do not reload than ctrl+c and relaunch the node, that litteraly an shortcut when we save an file and node will reload the script, to run that you need to run the command ``nodemon`` and that all
+If you want edit the source code, please use nodemon (npm i -g nodemon), he's needed to be installed globally
 
 Discord : https://discord.gg/x4GeJMMzBB 
 
