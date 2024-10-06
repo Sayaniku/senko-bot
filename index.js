@@ -4,7 +4,7 @@ const { Client, Collection, GatewayIntentBits, Partials, ActivityType, Events } 
 const eventHandler = require('./handlers/eventHandler');
 const commandlist = require('./handlers/commandlist');
 const colors = require("colors");
-
+const Sequelize = require('sequelize');
 
 // Always use client with intents
 const client = new Client({
@@ -29,6 +29,15 @@ eventHandler(client);
 
 // Login with the discord token configured on the .env file
 client.login(process.env.TOKEN)
+
+// const Sequelize = require('sequelize');
+// exports.sequelize = new Sequelize('DB Name', 'User', 'Password', {
+//     host: '127.0.0.1 (local ip but you can change)',
+//     port: 'port',
+//     dialect: 'mysql',
+//     logging: false,
+//     timezone: '+00:00'
+// });
 
 // When an word is say at the start of the phase, the bot replies
 client.on('messageCreate', (message) => {
