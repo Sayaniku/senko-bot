@@ -66,7 +66,7 @@ module.exports = {
     description: 'Go exclure un membre du serveur (avec moderation).',
     options: [
         {
-            name: 'target-user',
+            name: 'utilisateur',
             description: `L'utilisateur a kick.`,
             type: ApplicationCommandOptionType.Mentionable,
             required: true,

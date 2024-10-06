@@ -66,15 +66,16 @@ module.exports = {
     description: 'Bans a member from this server.',
     options: [
         {
-            name: 'target-user',
+            name: 'utilisateur',
             description: 'The user you want to ban.',
             type: ApplicationCommandOptionType.Mentionable,
             required: true,
         },
         {
-            name: 'reason',
+            name: 'raison',
             description: 'The reason you want to ban.',
             type: ApplicationCommandOptionType.String,
+            required: true,
         },
     ],
     permissionsRequired: [PermissionFlagsBits.BanMembers],
