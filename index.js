@@ -1,8 +1,10 @@
 // Configurations of needed packages
 require('dotenv').config();
 const { Client, Collection, GatewayIntentBits, Partials, ActivityType, Events } = require("discord.js");
+const eventHandler = require('./handlers/eventHandler');
+const commandlist = require('./handlers/commandlist');
 const colors = require("colors");
-const fs = require("fs");
+
 
 // Always use client with intents
 const client = new Client({
@@ -22,25 +24,12 @@ const client = new Client({
         repliedUser: false
     }
 });
-
-// Handlers loading
-fs.readdirSync('./handlers').forEach((handler) => {
-    require(`./handlers/${handler}`)(client)
-});
-
-// Config file needed to use an prefix and add the owner
-const config = require('./config.json')
-client.config = require('./config.json')
-client.prefix = config.prefix;
-client.commands = new Collection();
+commandlist(client);
+eventHandler(client);
 
 // Login with the discord token configured on the .env file
 client.login(process.env.TOKEN)
 
-// Second phrase of the ready
-client.on('ready', (c) => {
-     console.log(`[READY] ${client.user.tag} (${client.user.id}) est prêt | ${client.guilds.cache.size.toLocaleString('fr-FR')} serveurs | ${client.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0).toLocaleString('fr-FR')} utilisateurs`.green)
-});
 // When an word is say at the start of the phase, the bot replies
 client.on('messageCreate', (message) => {
     if (message.author.bot) {
@@ -61,5 +50,6 @@ async function errorHandler(error) {
 
     console.log(`[ERROR] ${error}`.red);
 };
+
 process.on("unhandledRejection", errorHandler);
 process.on("uncaughtException", errorHandler);
