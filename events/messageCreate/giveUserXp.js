@@ -34,7 +34,7 @@ module.exports = async (client, message) => {
                 level.xp = 0;
                 level.level += 1;
 
-                message.channel.send(`${message.member.user} vous avez augmente jusqu'au niveau **${level.level}**.`);
+                message.channel.send(`${message.member.user} vous avez augmente jusqu'au niveau **${level.level}**.`); //Fixing atm to do not ping the person for the level up
                 console.log(`${message.member} vous avez augmente jusqu'au niveau **${level.level}**.`);
             }
 
