@@ -1,4 +1,4 @@
-const { Schema, model } = require('sequelize');
+const { Schema, model } = require('mongoose');
 
 const levelSchema = new Schema({
     userId: {
