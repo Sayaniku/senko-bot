@@ -3,3 +3,6 @@
 /.idea/
 /.env
 /config.json
+/level_settings.json
+/twitch_streamers.json
+/logSettings.json
