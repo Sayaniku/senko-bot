@@ -1,6 +1,5 @@
-const { Client, Message } = require('discord.js');
 const calculateLevelXp = require('../../utils/calculateLevelXp');
-const Level = require('../../models/Level');
+const levelsDB = require('../../database/levels');
 const cooldowns = new Set();
 
 function getRandomXp(min, max) {
@@ -9,60 +8,37 @@ function getRandomXp(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-/**
- *
- * @param {Client} client
- * @param {Message} message
- */
 module.exports = async (client, message) => {
     if (!message.inGuild() || message.author.bot || cooldowns.has(message.author.id)) return;
 
-    const xpToGive = getRandomXp(5, 15);
+    // Vérification config SQLite
+    const settings = levelsDB.getSettings(message.guild.id);
+    if (!settings.enabled) return;
+    if (settings.disabledChannels.includes(message.channel.id)) return;
 
-    const query = {
-        userId: message.author.id,
-        guildId: message.guild.id,
-    };
+    const xpToGive = getRandomXp(10, 100);
+    let level = levelsDB.getLevel(message.author.id, message.guild.id);
 
-    try {
-        const level = await Level.findOne(query);
+    if (level) {
+        let newXp = level.xp + xpToGive;
+        let newLevel = level.level;
+        const neededXp = calculateLevelXp(newLevel);
 
-        if (level) {
-            level.xp += xpToGive;
+        if (newXp >= neededXp) {
+            newXp = 0;
+            newLevel += 1;
 
-            if (level.xp > calculateLevelXp(level.level)) {
-                level.xp = 0;
-                level.level += 1;
-
-                message.channel.send(`${message.member.user} vous avez augmente jusqu'au niveau **${level.level}**.`); //Fixing atm to do not ping the person for the level up
-                console.log(`${message.member} vous avez augmente jusqu'au niveau **${level.level}**.`);
+            if (message.author.id === '252128091118239744') {
+                message.channel.send(`Bravo mon cher Maitre <@!252128091118239744>, tu as augmenté au niveau **${newLevel}**.`);
+            } else {
+                message.channel.send(`${message.member.displayName} a atteint le niveau **${newLevel}**.`);
             }
-
-            await level.save().catch((e) => {
-                console.log(`Error saving updated level ${e}`);
-            });
-            cooldowns.add(message.author.id);
-            setTimeout(() => {
-                cooldowns.delete(message.author.id);
-            }, 60000);
         }
-
-        // if (!level)
-        else {
-            // create new level
-            const newLevel = new Level({
-                userId: message.author.id,
-                guildId: message.guild.id,
-                xp: xpToGive,
-            });
-
-            await newLevel.save();
-            cooldowns.add(message.author.id);
-            setTimeout(() => {
-                cooldowns.delete(message.author.id);
-            }, 60000);
-        }
-    } catch (error) {
-        console.log(`Il y a eu une erreur en donnant de l'xp: ${error}`);
+        levelsDB.setLevel(message.author.id, message.guild.id, newXp, newLevel);
+    } else {
+        levelsDB.createLevel(message.author.id, message.guild.id, xpToGive);
     }
+
+    cooldowns.add(message.author.id);
+    setTimeout(() => cooldowns.delete(message.author.id), 60000);
 };

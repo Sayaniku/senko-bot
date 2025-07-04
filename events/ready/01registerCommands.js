@@ -5,14 +5,12 @@ const getLocalCommands = require('../../utils/getLocalCommands');
 module.exports = async (client) => {
     try {
         const localCommands = getLocalCommands();
-        const applicationCommands = await getApplicationCommands(
-            client
-        );
+        const applicationCommands = await getApplicationCommands(client); // Global uniquement
 
         for (const localCommand of localCommands) {
             const { name, description, options } = localCommand;
 
-            const existingCommand = await applicationCommands.cache.find(
+            const existingCommand = applicationCommands.cache.find(
                 (cmd) => cmd.name === name
             );
 
@@ -28,14 +26,11 @@ module.exports = async (client) => {
                         description,
                         options,
                     });
-
                     console.log(`🔁 Edited command "${name}".`);
                 }
             } else {
                 if (localCommand.deleted) {
-                    console.log(
-                        `⏩ Skipping registering command "${name}" as it's set to delete.`
-                    );
+                    console.log(`⏩ Skipping registering command "${name}" as it's set to delete.`);
                     continue;
                 }
 
@@ -44,11 +39,10 @@ module.exports = async (client) => {
                     description,
                     options,
                 });
-
-                console.log(`👍 Registered command "${name}."`);
+                console.log(`👍 Registered global command "${name}".`);
             }
         }
     } catch (error) {
-        console.log(`TThere was an error: ${error}`);
+        console.log(`❌ Error during command registration: ${error}`);
     }
 };

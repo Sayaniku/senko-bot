@@ -18,14 +18,19 @@
   "homepage": "https://github.com/Sayaniku/senko-bot#readme",
   "dependencies": {
     "ascii-table": "^0.0.9",
+    "better-sqlite3": "^11.10.0",
+    "canvacord": "^6.0.2",
     "chalk": "^2.4.1",
     "colors": "^1.4.0",
     "discord-api-types": "^0.37.83",
+    "discord-canvas": "^1.5.2",
     "discord.js": "^14.15.2",
     "dotenv": "^16.4.5",
     "moment": "^2.30.1",
     "moment-duration-format": "^2.3.2",
     "mongoose": "^8.7.0",
-    "nodemon": "^3.1.4"
+    "ms": "^2.1.3",
+    "nodemon": "^3.1.4",
+    "pretty-ms": "^9.1.0"
   }
 }

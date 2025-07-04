@@ -1,22 +1,19 @@
 const { Schema, model } = require('mongoose');
 
-const levelSchema = new Schema({
-    userId: {
-        type: String,
-        required: true,
-    },
+const levelSettingsSchema = new Schema({
     guildId: {
         type: String,
         required: true,
+        unique: true,
     },
-    xp: {
-        type: Number,
-        default: 0,
+    enabled: {
+        type: Boolean,
+        default: true,
     },
-    level: {
-        type: Number,
-        default: 0,
+    disabledChannels: {
+        type: [String], // array d'ID de salons où c'est désactivé
+        default: [],
     },
 });
 
-module.exports = model('Level', levelSchema);
+module.exports = model('LevelSettings', levelSettingsSchema);
