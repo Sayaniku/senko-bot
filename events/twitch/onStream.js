@@ -52,9 +52,20 @@ async function checkLive(client) {
                 try {
                     const channel = await client.channels.fetch(channelId);
                     if (channel) {
+                        let variables = {
+                          '{user.name}': stream.user_name,
+                          '{stream.game}': stream.game_name || "Inconnu",
+                          '{user.twitch.url}': `https://twitch.tv/${stream.user_name}`
+                        };
                         let content = '';
                         if (roleId) content += `<@&${roleId}> `;
-                        if (customMessage) content += customMessage;
+                        if (customMessage) {
+                            let msg = customMessage;
+                            for (const [key, value] of Object.entries(variables)) {
+                                msg = msg.replaceAll(key, value);
+                            }
+                            content += msg;
+                        }
                         await channel.send({ content: content.trim(), embeds: [embed] });
                     }
                 } catch (err) {
